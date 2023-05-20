@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using Unity.VisualScripting;
 
 public class Settings : MonoBehaviour
 {
@@ -13,24 +14,34 @@ public class Settings : MonoBehaviour
     public TextMeshProUGUI movementText;
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
-            
+    public Button goBackToMenuButton;
 
-    public bool gameIsActive = true;
-    public bool gameIsEnded = false;
+
+    public bool gameIsActive = false;
+    public bool gameIsEnded = true;
 
     private int score;
     private float spawnRate = 1.0f;
 
+    
+    private void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1.0f;
+       
     }
+
+    
 
     // Update is called once per frame
     void Update()
 
     {
+        
         PauseGame();
         TurnOffText();
           
@@ -69,11 +80,16 @@ public class Settings : MonoBehaviour
             
             restartButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
-        }
+            goBackToMenuButton.gameObject.SetActive(true);
+
+    }
     
     public void RestartGame()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1.0f;
+        gameIsActive = true;
+        gameIsEnded = false;
+        SceneManager.LoadScene(1);
     }
 
     public void TurnOffText()
@@ -87,6 +103,27 @@ public class Settings : MonoBehaviour
             movementText.gameObject.SetActive(true);
         }
     }
+    //load start menu 
 
+    public void StartGame()
+    
+    {
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    //load game scene
+
+    public void StartPlay()
+    {
+
+        Time.timeScale = 1.0f;
+        gameIsActive = true;
+        gameIsEnded = false;
+        SceneManager.LoadScene(1);
+        
+    }
 
 }
