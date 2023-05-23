@@ -15,6 +15,11 @@ public class Settings : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public Button goBackToMenuButton;
+    public int menuSceneNumber = 0;
+    public int menuSettingsSceneNumber = 1;
+    public int menuCreditsSceneNumber = 2;
+    public int gameSceneNumber = 3;
+
 
 
     public bool gameIsActive = false;
@@ -24,11 +29,6 @@ public class Settings : MonoBehaviour
     private float spawnRate = 1.0f;
 
     
-    private void Awake()
-    {
-        
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -51,19 +51,21 @@ public class Settings : MonoBehaviour
     
     public void PauseGame()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && gameIsActive && !gameIsEnded )
+        if (Input.GetKeyDown(KeyCode.Tab) && gameIsActive && !gameIsEnded && SceneManager.GetActiveScene().buildIndex == gameSceneNumber)
         {
             Time.timeScale = 0.0f;
             gameIsActive = false;
             pauseText.gameObject.SetActive(true);
+            goBackToMenuButton.gameObject.SetActive(true);
 
 
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && !gameIsActive && !gameIsEnded )
+        else if (Input.GetKeyDown(KeyCode.Tab) && !gameIsActive && !gameIsEnded && SceneManager.GetActiveScene().buildIndex == gameSceneNumber)
         {
             Time.timeScale = 1.0f;
             gameIsActive = true;
             pauseText.gameObject.SetActive(false);
+            goBackToMenuButton.gameObject.SetActive(false);
         }
             
     }
@@ -89,7 +91,7 @@ public class Settings : MonoBehaviour
         Time.timeScale = 1.0f;
         gameIsActive = true;
         gameIsEnded = false;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(gameSceneNumber);
     }
 
     public void TurnOffText()
@@ -122,8 +124,9 @@ public class Settings : MonoBehaviour
         Time.timeScale = 1.0f;
         gameIsActive = true;
         gameIsEnded = false;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(gameSceneNumber);
         
     }
 
+    
 }
