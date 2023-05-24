@@ -15,10 +15,10 @@ public class Settings : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public Button goBackToMenuButton;
-    public int menuSceneNumber = 0;
-    public int menuSettingsSceneNumber = 1;
-    public int menuCreditsSceneNumber = 2;
-    public int gameSceneNumber = 3;
+    private int menuSceneNumber = 0;
+    private int menuSettingsSceneNumber = 2;
+    private int menuCreditsSceneNumber = 1;
+    private int gameSceneNumber = 3;
 
 
 
@@ -128,5 +128,15 @@ public class Settings : MonoBehaviour
         
     }
 
-    
+    //load settings scene
+    public void MoveToSettings()
+    {
+        SceneManager.LoadScene(menuSettingsSceneNumber);
+    }
+
+    //load credits scene
+    public void MoveTocredits()
+    {
+        SceneManager.LoadScene(menuCreditsSceneNumber);
+    }
 }
